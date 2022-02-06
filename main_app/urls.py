@@ -1,4 +1,3 @@
-from unicodedata import name
 from django.urls import path
 from . import views
 
@@ -11,4 +10,5 @@ urlpatterns = [
     path('artists/<int:pk>/', views.ArtistDetail.as_view(), name="artist_detail"),
     # Our new Route including the pk param
     path('artists/<int:pk>/update',views.ArtistUpdate.as_view(), name="artist_update"),
+    path('artists/<int:pk>/delete',views.ArtistDelete.as_view(), name="artist_delete"),
 ]

@@ -3,9 +3,9 @@ from sre_constants import SUCCESS
 from django.shortcuts import render
 from django.views.generic.base import TemplateView # <- View class to handle requests
 from .models import Artist
-from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Create your views here.
 
@@ -40,7 +40,10 @@ class ArtistCreate(CreateView):
     model = Artist
     fields = ['name', 'img', 'bio', 'verified_artist']
     template_name = "artist_create.html"
-    success_url = "/artists/"
+    def get_success_url(self):
+        return reverse('artist_detail', kwargs={'pk': self.object.pk})
+
+
 
 class ArtistDetail(DetailView):
     model = Artist
@@ -50,4 +53,10 @@ class ArtistUpdate(UpdateView):
     model = Artist
     fields = ['name', 'img', 'bio', 'verified_artist']
     template_name = "artist_update.html"
+    def get_success_url(self):
+        return reverse('artist_detail', kwargs={'pk': self.object.pk})
+
+class ArtistDelete(DeleteView):
+    model = Artist
+    template_name = "artist_delete_confirmation.html"
     success_url = "/artists/"
