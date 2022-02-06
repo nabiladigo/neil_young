@@ -18,8 +18,15 @@ class Artist:
         self.image = image
         self.bio = bio
 
+class ArtistList(TemplateView):
+    template_name = "artist_list.html"
 
-taco = [
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["artists"] = artists # this is where we add the key into our context object for the view to use
+        return context
+
+artists = [
     Artist("Gorillaz", "https://i.scdn.co/image/ab67616d00001e0295cf976d9ab7320469a00a29",
         "Gorillaz are once again disrupting the paradigm and breaking convention in their round the back door fashion with Song Machine, the newest concept from one of the most inventive bands around."),
     Artist("Panic! At The Disco",
@@ -33,11 +40,3 @@ taco = [
     Artist("Kaskade",
         "https://i1.sndcdn.com/artworks-sNjd3toBZYCG-0-t500x500.jpg", "Ryan Gary Raddon, better known by his stage name Kaskade, is an American DJ, record producer, and remixer."),
 ]
-
-class ArtistList(TemplateView):
-    template_name = "artist_list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["duke"] = taco # this is where we add the key into our context object for the view to use
-        return context
