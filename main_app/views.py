@@ -1,5 +1,3 @@
-from dataclasses import fields
-from sre_constants import SUCCESS
 from django.shortcuts import render
 from django.views.generic.base import TemplateView # <- View class to handle requests
 from .models import Artist
@@ -38,7 +36,7 @@ class ArtistList(TemplateView):
 
 class ArtistCreate(CreateView):
     model = Artist
-    fields = ['name', 'img', 'bio', 'verified_artist']
+    fields = ['name', 'img', 'bio']
     template_name = "artist_create.html"
     def get_success_url(self):
         return reverse('artist_detail', kwargs={'pk': self.object.pk})

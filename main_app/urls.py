@@ -11,4 +11,5 @@ urlpatterns = [
     # Our new Route including the pk param
     path('artists/<int:pk>/update',views.ArtistUpdate.as_view(), name="artist_update"),
     path('artists/<int:pk>/delete',views.ArtistDelete.as_view(), name="artist_delete"),
+    # path('', views.404.as_view(), name="404"),   
 ]
