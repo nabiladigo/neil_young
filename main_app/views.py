@@ -1,10 +1,10 @@
-from django.shortcuts import render
 from django.views.generic.base import TemplateView # <- View class to handle requests
-from .models import Artist
+from .models import Artist, Song
 from django.views.generic import DetailView
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+from django.shortcuts import redirect
+from django.views import View
 # Create your views here.
 
 # Here we will be creating a class called Home and extending it from the View class
@@ -58,3 +58,14 @@ class ArtistDelete(DeleteView):
     model = Artist
     template_name = "artist_delete_confirmation.html"
     success_url = "/artists/"
+
+
+
+class SongCreate(View):
+
+    def post(self, request, pk):
+        title = request.POST.get("title")
+        length = request.POST.get("length")
+        artist = Artist.objects.get(pk=pk)
+        Song.objects.create(title=title, length=length, artist=artist)
+        return redirect('artist_detail', pk=pk)
